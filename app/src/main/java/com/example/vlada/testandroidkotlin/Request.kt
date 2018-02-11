@@ -9,9 +9,9 @@ import okhttp3.Request
  */
 class GetRepos {
 
-    fun run(url: String) : Project.List{
+    var repositories: Project.List = Project.List()
 
-        var repositories: Project.List = Project.List()
+    fun run(url: String): Project.List {
 
         Thread(Runnable {
 

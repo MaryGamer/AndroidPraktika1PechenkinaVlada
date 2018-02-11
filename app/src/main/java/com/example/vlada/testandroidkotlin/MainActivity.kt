@@ -8,7 +8,7 @@ import com.example.vlada.testandroidkotlin.adapters.CustomAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    val getRepos: GetRepos = GetRepos()
+    var getRepos: GetRepos = GetRepos()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,3 +32,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
