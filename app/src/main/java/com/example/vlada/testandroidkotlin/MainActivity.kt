@@ -1,14 +1,16 @@
 package com.example.vlada.testandroidkotlin
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.vlada.testandroidkotlin.adapters.CustomAdapter
+import com.google.gson.Gson
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class MainActivity : AppCompatActivity() {
-
-    var getRepos: GetRepos = GetRepos()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,17 +20,27 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        Thread(Runnable {
 
-        val repositories: Project.List = getRepos.run("https://api.github.com/users/square/repos")
+            val client = OkHttpClient()
 
-        /*val projects = ArrayList<Project>()
+            val request = Request.Builder().url("https://api.github.com/users/square/repos")
+                    .build()
 
-        projects.add(Project("Ttrtrtr"))
-        projects.add(Project("GRGTFHF"))
-        projects.add(Project("LKRFG"))*/
+            val response = client.newCall(request).execute()
+            val responseText = response.body()!!.string()
 
-        val adapter = CustomAdapter(repositories)
-        recyclerView.adapter = adapter
+            val repos = Gson().fromJson(responseText,
+                    Project.List::class.java)
+
+            runOnUiThread {
+                val adapter = CustomAdapter(repos)
+                recyclerView.adapter = adapter
+            }
+
+            //android.util.Log.d("Repos", repos.joinToString { it.name })
+        }).start()
+
     }
 
 }
