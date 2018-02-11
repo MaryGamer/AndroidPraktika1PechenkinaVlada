@@ -16,10 +16,10 @@ class CustomAdapter(val projectList: ArrayList<Project>)
     : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?,
-                                    viewType: Int): CustomAdapter.ViewHolder{
+                                    viewType: Int): CustomAdapter.ViewHolder {
 
         val view: View = LayoutInflater.from(parent?.context).
-                inflate(R.layout.list_item, parent,false)
+                inflate(R.layout.list_item, parent, false)
 
         val cardView = view.findViewById<CardView>(R.id.cardView)
         cardView.radius = 5.0F;
@@ -36,9 +36,9 @@ class CustomAdapter(val projectList: ArrayList<Project>)
         return projectList.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(project : Project){
+        fun bindItems(project: Project) {
 
             val textViewProjectName = itemView.findViewById<TextView>(R.id.projectName)
             textViewProjectName.text = project.name

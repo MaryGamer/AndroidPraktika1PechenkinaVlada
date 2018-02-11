@@ -8,6 +8,8 @@ import com.example.vlada.testandroidkotlin.adapters.CustomAdapter
 
 class MainActivity : AppCompatActivity() {
 
+    val getRepos: GetRepos = GetRepos()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -16,14 +18,17 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val projects = ArrayList<Project>()
+
+        val repositories: Project.List = getRepos.run("https://api.github.com/users/square/repos")
+
+        /*val projects = ArrayList<Project>()
 
         projects.add(Project("Ttrtrtr"))
         projects.add(Project("GRGTFHF"))
-        projects.add(Project("LKRFG"))
+        projects.add(Project("LKRFG"))*/
 
-        val adapter = CustomAdapter(projects)
+        val adapter = CustomAdapter(repositories)
         recyclerView.adapter = adapter
-
     }
+
 }
